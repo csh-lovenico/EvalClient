@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">EvaluationClient</string>
+    <string name="app_name">学生评教系统</string>
+    <string name="connection_test">Connection Test</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_button">登录</string>
+    <string name="exit_button">退出</string>
+    <string name="username_label">用户名</string>
+    <string name="password_label">密码</string>
+    <string name="aspect_one_desc">老师有责任心，爱岗敬业，品行端正。老师关心我的学习和生活，是我做人、做事、做学问的榜样。</string>
+    <string name="aspect_one_title">教师师德</string>
+    <string name="eval_total_title">总体评价</string>
+    <string name="eval_total_desc">拖动滑块来为教学评分，可评1–5分。</string>
+    <string name="button_save">保存</string>
+    <string name="current_version">版本 0.0.1</string>
+    <string name="overview_desc">全部方面评分均为满分时为满星，其余情况为半星。满星评价不可超过可评价课程的20%，若可评价课程小于5门则无法进行满星评价。点击右下角按钮上传评价信息。</string>
 </resources>
