@@ -2,4 +2,60 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation" />
+    android:id="@+id/navigation"
+    app:startDestination="@id/overviewFragment">
+    <fragment
+        android:id="@+id/overviewFragment"
+        android:name="live.bokurano.evaluationclient.overview.OverviewFragment"
+        android:label="OverviewFragment"
+        tools:layout="@layout/overview_fragment">
+        <action
+            android:id="@+id/action_overviewFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_overviewFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_overviewFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_overviewFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="live.bokurano.evaluationclient.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/login_fragment">
+        <action
+            android:id="@+id/action_loginFragment_to_overviewFragment"
+            app:destination="@id/overviewFragment"
+            app:popUpTo="@id/overviewFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="live.bokurano.evaluationclient.about.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="live.bokurano.evaluationclient.history.HistoryFragment"
+        android:label="HistoryFragment"
+        tools:layout="@layout/history_fragment">
+        <action
+            android:id="@+id/action_historyFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="live.bokurano.evaluationclient.detail.DetailFragment"
+        android:label="DetailFragment"
+        tools:layout="@layout/detail_fragment">
+        <action
+            android:id="@+id/action_detailFragment_to_overviewFragment"
+            app:destination="@id/overviewFragment"
+            app:popUpTo="@id/overviewFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>
