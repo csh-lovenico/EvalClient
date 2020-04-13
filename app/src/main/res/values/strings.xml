@@ -14,4 +14,10 @@
     <string name="button_save">保存</string>
     <string name="current_version">版本 0.0.1</string>
     <string name="overview_desc">全部方面评分均为满分时为满星，其余情况为半星。满星评价不可超过可评价课程的20%，若可评价课程小于5门则无法进行满星评价。点击右下角按钮上传评价信息。</string>
+    <string name="eval_history_title">评教历史</string>
+    <string name="about_title">关于</string>
+    <string name="login_title">登录</string>
+    <string name="not_logged_in_prompt">点击左上角菜单，选择登录</string>
+    <string name="not_logged_in_title">未登录</string>
+    <string name="clear_cache_text">清除缓存并登出</string>
 </resources>
