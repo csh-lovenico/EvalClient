@@ -1,12 +1,15 @@
 package live.bokurano.evaluationclient.overview
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import live.bokurano.evaluationclient.R
+import live.bokurano.evaluationclient.databinding.OverviewFragmentBinding
 
 
 class OverviewFragment : Fragment() {
@@ -22,7 +25,34 @@ class OverviewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.overview_fragment, container, false)
+        val binding = DataBindingUtil.inflate<OverviewFragmentBinding>(
+            inflater,
+            R.layout.overview_fragment,
+            container,
+            false
+        )
+        binding.lifecycleOwner = this
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.app_name)
+        val args = OverviewFragmentArgs.fromBundle(arguments!!)
+        if (args.isLoggedIn) {
+            binding.uploadButton.visibility = View.VISIBLE
+            binding.overviewStat.visibility = View.VISIBLE
+            binding.overviewDesc.visibility = View.VISIBLE
+            binding.uploadButton.visibility = View.VISIBLE
+            binding.notLoggedInLogo.visibility = View.GONE
+            binding.notLoggedInTitle.visibility = View.GONE
+            binding.notLoggedInPrompt.visibility = View.GONE
+        } else {
+            binding.uploadButton.visibility = View.GONE
+            binding.overviewStat.visibility = View.GONE
+            binding.uploadButton.visibility = View.GONE
+            binding.overviewDesc.visibility = View.GONE
+            binding.notLoggedInLogo.visibility = View.VISIBLE
+            binding.notLoggedInTitle.visibility = View.VISIBLE
+            binding.notLoggedInPrompt.visibility = View.VISIBLE
+        }
+
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
