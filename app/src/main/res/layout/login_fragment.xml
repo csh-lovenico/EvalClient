@@ -18,20 +18,20 @@
             android:layout_width="144dp"
             android:layout_height="144dp"
             android:layout_marginStart="133dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="134dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_perm_identity_gray_48dp" />
+            app:layout_constraintVertical_bias="0.04"
+            app:srcCompat="@drawable/ic_account_box_black_24dp" />
 
         <EditText
             android:id="@+id/username_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_padding_margin"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="@string/username_label"
             android:importantForAutofill="no"
@@ -56,19 +56,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/username_input"
             tools:hint="@string/password_label" />
-
-        <Button
-            android:id="@+id/back_button"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/exit_button"
-            android:textColor="@color/design_default_color_error"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_button" />
 
         <Button
             android:id="@+id/login_button"

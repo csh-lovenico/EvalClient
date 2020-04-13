@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import live.bokurano.evaluationclient.R
 
 /**
@@ -20,4 +21,7 @@ class AboutFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_about, container, false)
     }
 
+    fun clearCache(){
+        findNavController().navigate(AboutFragmentDirections.actionAboutFragmentToOverviewFragment(false))
+    }
 }

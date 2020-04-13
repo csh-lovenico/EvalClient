@@ -12,6 +12,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 private const val BASE_URL = "http://10.0.2.2:8080/"
+private const val BASE_MOCK = "https://3e6afc28-f802-476e-82c4-7dacef64fea9.mock.pstmn.io/"
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -24,11 +25,8 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface EvalApiService {
-    @GET("info")
-    fun getInfo(): Call<String>
-
     @POST("auth")
-    fun userLogin(@Body loginUser: LoginUser): Deferred<String>
+    fun userLoginAsync(@Body loginUser: LoginUser): Deferred<LoginResponse>
 }
 
 object EvalApi {

@@ -11,11 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".overview.OverviewFragment"
-        tools:visibility="visible"
-        >
+        tools:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
+            android:id="@+id/overview_stat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -23,7 +22,8 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone">
 
             <LinearLayout
                 android:id="@+id/unfinished"
@@ -181,8 +181,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-            tools:text="@string/overview_desc" />
+            app:layout_constraintTop_toBottomOf="@+id/overview_stat"
+            tools:text="@string/overview_desc"
+            tools:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/overview_list"
@@ -194,7 +195,7 @@
             app:layout_constraintTop_toBottomOf="@+id/overview_desc"
             tools:itemCount="3"
             tools:listitem="@layout/overview_item"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -209,7 +210,45 @@
             android:src="@drawable/ic_cloud_upload_white_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:visibility="visible" />
+            tools:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/not_logged_in_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.35000002"
+            app:srcCompat="@drawable/ic_account_box_black_24dp" />
+
+        <TextView
+            android:id="@+id/not_logged_in_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/not_logged_in_title"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/not_logged_in_logo"
+            tools:text="@string/not_logged_in_title" />
+
+        <TextView
+            android:id="@+id/not_logged_in_prompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/not_logged_in_prompt"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/not_logged_in_title"
+            tools:text="@string/not_logged_in_prompt" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
