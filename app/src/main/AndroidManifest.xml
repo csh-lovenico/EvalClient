@@ -3,6 +3,7 @@
     package="live.bokurano.evaluationclient">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
+        android:name=".TimberConfiguration"
         android:networkSecurityConfig="@xml/network_security_config"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
