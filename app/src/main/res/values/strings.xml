@@ -15,9 +15,23 @@
     <string name="current_version">版本 0.0.1</string>
     <string name="overview_desc">全部方面评分均为满分时为满星，其余情况为半星。满星评价不可超过可评价课程的20%，若可评价课程小于5门则无法进行满星评价。点击右下角按钮上传评价信息。</string>
     <string name="eval_history_title">评教历史</string>
-    <string name="about_title">关于</string>
     <string name="login_title">登录</string>
     <string name="not_logged_in_prompt">点击左上角菜单，选择登录</string>
     <string name="not_logged_in_title">未登录</string>
     <string name="clear_cache_text">清除缓存并登出</string>
+    <string name="network_error_text">网络错误</string>
+    <string name="incorrect_password_text">用户名或密码错误</string>
+    <string name="logging_in_text">正在登录</string>
+    <string name="login_success_text">登录成功</string>
+    <string name="comment_hint">在此填写评语，需多于10个字符</string>
+    <string name="comment_title">评语</string>
+    <string name="dash">-</string>
+    <string name="credential_expired_title">登录信息已过期</string>
+    <string name="retry_login_prompt">请尝试重新登录或重启应用</string>
+    <string name="dialog_confirm">确定</string>
+    <string name="dialog_cancel">取消</string>
+    <string name="about_title">关于</string>
+    <string name="course_teacher">任课教师：%s</string>
+    <string name="course_semester">第%d学期</string>
+    <string name="course_year">%d - %d</string>
 </resources>
