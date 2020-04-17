@@ -29,6 +29,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.login_title)
         val binding = DataBindingUtil.inflate<LoginFragmentBinding>(
             inflater,
             R.layout.login_fragment,
@@ -36,7 +37,6 @@ class LoginFragment : Fragment() {
             false
         )
         binding.lifecycleOwner = this
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.login_title)
 
         binding.loginButton.setOnClickListener {
             viewModel.login(
@@ -47,7 +47,7 @@ class LoginFragment : Fragment() {
             )
             // Hide the keyboard.
             val inputMethodManager =
-                activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                context!!.getSystemService(InputMethodManager::class.java) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
         }
 
@@ -87,20 +87,22 @@ class LoginFragment : Fragment() {
                         true
                     )
                 )
-                Toast.makeText(context, getString(R.string.login_success_text), Toast.LENGTH_LONG).show()
-                activity!!.findViewById<NavigationView>(R.id.navView).menu.clear()
-                activity!!.findViewById<NavigationView>(R.id.navView).inflateMenu(R.menu.main_menu)
+                Toast.makeText(context, getString(R.string.login_success_text), Toast.LENGTH_LONG)
+                    .show()
                 viewModel.navigateComplete()
             }
         })
 
         viewModel.response.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                val editor = activity!!.getSharedPreferences("user", Context.MODE_PRIVATE).edit()
-                editor.putString("jwtToken", it.jwtToken)
-                editor.putString("userId", it.userId)
-                editor.putString("userRole", it.userRole)
-                editor.apply()
+                val sharedPref =
+                    activity?.getSharedPreferences("user", Context.MODE_PRIVATE) ?: return@Observer
+                with(sharedPref.edit()) {
+                    putString("jwtToken", "Bearer ${it.jwtToken}")
+                    putString("userId", it.userId)
+                    putString("userRole", it.userRole)
+                    apply()
+                }
                 viewModel.clearCache()
             }
         })
