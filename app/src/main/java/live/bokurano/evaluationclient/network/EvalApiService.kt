@@ -4,12 +4,9 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 private const val BASE_URL = "http://10.0.2.2:8080/"
 private const val BASE_MOCK = "https://3e6afc28-f802-476e-82c4-7dacef64fea9.mock.pstmn.io/"
@@ -27,6 +24,16 @@ private val retrofit = Retrofit.Builder()
 interface EvalApiService {
     @POST("auth")
     fun userLoginAsync(@Body loginUser: LoginUser): Deferred<LoginResponse>
+
+    @GET("api/test")
+    fun connectionTestAsync(@Header("Authorization") token: String): Deferred<Map<String, String>>
+
+    @GET("api/student/getUnevaluatedCourses")
+    fun getUnevaluatedCoursesAsync(
+        @Header("Authorization") token: String,
+        @Query("studentId") studentId: String
+    ): Deferred<TransferResult<List<Course>>>
+
 }
 
 object EvalApi {
