@@ -1,7 +1,9 @@
 package live.bokurano.evaluationclient.overview
 
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
 import live.bokurano.evaluationclient.R
 import live.bokurano.evaluationclient.database.Evaluation
@@ -17,6 +19,16 @@ fun TextView.setCourseName(item: Evaluation?) {
 fun TextView.setCourseTeacher(item: Evaluation?) {
     item?.let {
         text = context.resources.getString(R.string.course_teacher, item.courseTeacher)
+    }
+}
+
+@BindingAdapter("visibility")
+fun CardView.setVisibility(item: Evaluation?) {
+    item?.let {
+        visibility = when (it.complete) {
+            true -> View.GONE
+            false -> View.VISIBLE
+        }
     }
 }
 

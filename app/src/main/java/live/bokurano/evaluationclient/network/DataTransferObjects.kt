@@ -19,8 +19,8 @@ data class Course(
 @JsonClass(generateAdapter = true)
 data class TransferResult<T>(
     val status: Int,
-    val result: T,
-    val message: String
+    val result: T?,
+    val message: String?
 )
 
 

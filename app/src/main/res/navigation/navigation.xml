@@ -52,11 +52,7 @@
         android:id="@+id/historyFragment"
         android:name="live.bokurano.evaluationclient.history.HistoryFragment"
         android:label="HistoryFragment"
-        tools:layout="@layout/history_fragment">
-        <action
-            android:id="@+id/action_historyFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
-    </fragment>
+        tools:layout="@layout/history_fragment"/>
     <fragment
         android:id="@+id/detailFragment"
         android:name="live.bokurano.evaluationclient.detail.DetailFragment"
@@ -67,5 +63,8 @@
             app:destination="@id/overviewFragment"
             app:popUpTo="@id/overviewFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="evaluationId"
+            app:argType="long" />
     </fragment>
 </navigation>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
         <variable
             name="evaluation"
             type="live.bokurano.evaluationclient.database.Evaluation" />
@@ -18,6 +19,7 @@
         android:layout_marginStart="@dimen/default_padding_margin"
         android:layout_marginTop="@dimen/default_padding_margin"
         android:layout_marginEnd="@dimen/default_padding_margin"
+        app:visibility="@{evaluation}"
         android:focusable="true"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
