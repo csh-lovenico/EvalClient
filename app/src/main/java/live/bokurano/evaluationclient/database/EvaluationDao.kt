@@ -9,13 +9,16 @@ interface EvaluationDao {
     fun insertAll(evaluations: List<Evaluation>)
 
     @Update
+    fun updateAll(evaluations: List<Evaluation>)
+
+    @Update
     fun update(evaluation: Evaluation)
 
     @Query("SELECT * FROM evaluation WHERE current_student_id = :studentId AND complete = 0")
     fun findEvaluationByStudentId(studentId: String): LiveData<List<Evaluation>>
 
     @Query("SELECT * FROM evaluation WHERE evalId = :id")
-    fun findEvaluationById(id: Long): Evaluation?
+    fun findEvaluationById(id: Long): LiveData<Evaluation>
 
     @Query("DELETE FROM evaluation")
     fun clearAll()
