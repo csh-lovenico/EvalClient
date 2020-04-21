@@ -28,7 +28,7 @@ class EvaluationRepository(
                 loginResponse.jwtToken,
                 loginResponse.userId
             ).await()
-            if (evaluations.value.isNullOrEmpty() && courseResult.result.isNotEmpty()) {
+            if (evaluations.value.isNullOrEmpty() && courseResult.result!!.isNotEmpty()) {
                 val evalList = CourseContainer(courseResult.result).asDomainModel()
                 evalList.stream().forEach {
                     it.currentStudentId = loginResponse.userId
