@@ -23,6 +23,22 @@ class OverviewViewModel(
         viewModelJob + Dispatchers.Main
     )
 
+    private val _uploadSuccess = MutableLiveData<Boolean>()
+    val uploadSuccess: LiveData<Boolean>
+        get() = _uploadSuccess
+
+    private val _navigateToDetail = MutableLiveData<Long>()
+    val navigateToDetail: LiveData<Long>
+        get() = _navigateToDetail
+
+    private val _tooManyFullStar = MutableLiveData<Boolean>()
+    val tooManyFullStar: LiveData<Boolean>
+        get() = _tooManyFullStar
+
+    private val _uploadError = MutableLiveData<Boolean>()
+    val uploadError: LiveData<Boolean>
+        get() = _uploadError
+
     private val savedResponse = loginResponse
 
     private val _loginSuccess = MutableLiveData<Boolean>()
@@ -47,19 +63,20 @@ class OverviewViewModel(
     val evaluationList = evaluationRepository.evaluations
 
     val unfinished = Transformations.map(evaluationList) {
-        evaluationList.value?.stream()?.filter { it.rate == 0 }?.count().toString()
+        evaluationList.value?.stream()?.filter { it.rate == 0 && !it.complete }?.count().toString()
     }
 
     val finished = Transformations.map(evaluationList) {
-        evaluationList.value?.stream()?.filter { it.rate != 0 }?.count().toString()
+        evaluationList.value?.stream()?.filter { it.rate != 0 && !it.complete }?.count().toString()
     }
 
     val halfStar = Transformations.map(evaluationList) {
-        evaluationList.value?.stream()?.filter { it.rate in 1..4 }?.count().toString()
+        evaluationList.value?.stream()?.filter { it.rate in 1..4 && !it.complete }?.count()
+            .toString()
     }
 
     val fullStar = Transformations.map(evaluationList) {
-        evaluationList.value?.stream()?.filter { it.rate == 5 }?.count().toString()
+        evaluationList.value?.stream()?.filter { it.rate == 5 && !it.complete }?.count().toString()
     }
 
     init {
@@ -78,6 +95,11 @@ class OverviewViewModel(
 
     fun onEvaluationClicked(evalId: Long) {
         Timber.i(evalId.toString())
+        _navigateToDetail.value = evalId
+    }
+
+    fun onNavigateComplete() {
+        _navigateToDetail.value = null
     }
 
     fun checkLoginState() {
@@ -111,6 +133,43 @@ class OverviewViewModel(
         }
     }
 
+    fun checkState() {
+        if (fullStar.value!!.toInt() > finished.value!!.toInt() * 0.2) {
+            _tooManyFullStar.value = true
+        } else {
+            postEvaluations()
+        }
+    }
+
+
+    private fun postEvaluations() {
+        coroutineScope.launch {
+            val postDeferred = EvalApi.retrofitService.postEvaluationAsync(
+                savedResponse.jwtToken,
+                evaluationList.value!!
+            )
+            try {
+                val response = postDeferred.await()
+                Timber.i(response.status.toString())
+                setEvaluationCompleted()
+                _uploadSuccess.value = true
+
+            } catch (e: Exception) {
+                Timber.e(e)
+                _uploadError.value = true
+            }
+        }
+    }
+
+    private suspend fun setEvaluationCompleted() {
+        withContext(Dispatchers.IO) {
+            evaluationList.value!!.stream().forEach {
+                it.complete = true
+            }
+            database.updateAll(evaluationList.value!!)
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
@@ -124,5 +183,11 @@ class OverviewViewModel(
     fun setStateComplete() {
         _credentialExpired.value = false
         _networkError.value = false
+    }
+
+    fun setUploadStateComplete() {
+        _tooManyFullStar.value = null
+        _uploadSuccess.value = null
+        _uploadError.value = null
     }
 }

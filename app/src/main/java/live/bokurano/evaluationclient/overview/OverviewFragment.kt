@@ -1,7 +1,6 @@
 package live.bokurano.evaluationclient.overview
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,12 +10,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import live.bokurano.evaluationclient.R
 import live.bokurano.evaluationclient.database.EvaluationDatabase
 import live.bokurano.evaluationclient.databinding.OverviewFragmentBinding
 import live.bokurano.evaluationclient.network.LoginResponse
+import timber.log.Timber
 
 
 class OverviewFragment : Fragment() {
@@ -130,6 +132,63 @@ class OverviewFragment : Fragment() {
                 binding.notLoggedInTitle.text = getString(R.string.network_error_text)
                 binding.notLoggedInPrompt.text = getString(R.string.retry_login_prompt)
                 viewModel.setStateComplete()
+            }
+        })
+
+        viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                findNavController().navigate(
+                    OverviewFragmentDirections.actionOverviewFragmentToDetailFragment(
+                        it
+                    )
+                )
+                viewModel.onNavigateComplete()
+            }
+        })
+
+        viewModel.unfinished.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                binding.uploadButton.isEnabled = it.toInt() <= 0
+            }
+        })
+
+        binding.uploadButton.setOnClickListener {
+            Timber.i(viewModel.evaluationList.value.toString())
+            viewModel.checkState()
+        }
+
+        viewModel.tooManyFullStar.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                    Snackbar.make(
+                        activity!!.findViewById(R.id.list_container),
+                        "上传失败：不符合评教条件",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                    viewModel.setUploadStateComplete()
+            }
+        })
+
+        viewModel.uploadSuccess.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Snackbar.make(
+                    activity!!.findViewById(R.id.list_container),
+                    "上传成功",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                adapter.notifyDataSetChanged()
+                viewModel.setUploadStateComplete()
+            }
+
+        })
+
+        viewModel.uploadError.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Snackbar.make(
+                    activity!!.findViewById(R.id.list_container),
+                    "上传失败：网络错误",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                viewModel.setUploadStateComplete()
             }
         })
         return binding.root
