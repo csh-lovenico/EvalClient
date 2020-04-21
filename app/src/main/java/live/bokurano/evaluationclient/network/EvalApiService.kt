@@ -4,6 +4,7 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
+import live.bokurano.evaluationclient.database.Evaluation
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
@@ -33,6 +34,12 @@ interface EvalApiService {
         @Header("Authorization") token: String,
         @Query("studentId") studentId: String
     ): Deferred<TransferResult<List<Course>>>
+
+    @POST("/api/student/postEvaluations")
+    fun postEvaluationAsync(
+        @Header("Authorization") token: String,
+        @Body evaluations: List<Evaluation>
+    ): Deferred<TransferResult<String>>
 
 }
 
