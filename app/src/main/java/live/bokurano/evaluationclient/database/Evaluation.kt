@@ -14,6 +14,8 @@ data class Evaluation(
     var courseName: String,
     @ColumnInfo(name = "course_teacher")
     var courseTeacher: String,
+    @ColumnInfo(name = "course_teacher_id")
+    var courseTeacherId:String,
     @ColumnInfo(name = "course_year")
     var courseYear: Int,
     @ColumnInfo(name = "course_semester")
