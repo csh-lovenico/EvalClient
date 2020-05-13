@@ -33,13 +33,14 @@ class DetailFragment : Fragment() {
             false
         )
         val application = requireNotNull(this.activity).application
-        val arguments = DetailFragmentArgs.fromBundle(arguments!!)
+        val arguments = DetailFragmentArgs.fromBundle(requireArguments())
         val dataSource = EvaluationDatabase.getInstance(application).evaluationDao
         val viewModelFactory = DetailViewModelFactory(dataSource, arguments.evaluationId)
         val viewModel = ViewModelProvider(this, viewModelFactory).get(DetailViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        binding.evalTotalSeekbar.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener{
+        binding.evalTotalSeekbar.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 binding.evalTotalScore.text = progress.toString()
             }
@@ -58,15 +59,15 @@ class DetailFragment : Fragment() {
         }
 
         viewModel.validateFail.observe(viewLifecycleOwner, Observer {
-            if (it==true){
-                Toast.makeText(context,"保存失败：评分需为1-5分，评论需多于10个字符",Toast.LENGTH_LONG).show()
+            if (it == true) {
+                Toast.makeText(context, "保存失败：评分需为1-5分，评论需多于10个字符", Toast.LENGTH_LONG).show()
                 viewModel.validateComplete()
             }
         })
 
         viewModel.validateSuccess.observe(viewLifecycleOwner, Observer {
-            if(it==true){
-                Toast.makeText(context,"保存成功",Toast.LENGTH_LONG).show()
+            if (it == true) {
+                Toast.makeText(context, "保存成功", Toast.LENGTH_LONG).show()
                 viewModel.validateComplete()
             }
         })

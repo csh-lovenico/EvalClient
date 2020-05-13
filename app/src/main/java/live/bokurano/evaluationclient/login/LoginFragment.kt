@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.navigation.NavigationView
 import live.bokurano.evaluationclient.R
 import live.bokurano.evaluationclient.databinding.LoginFragmentBinding
 import live.bokurano.evaluationclient.network.LoginUser
@@ -47,7 +46,7 @@ class LoginFragment : Fragment() {
             )
             // Hide the keyboard.
             val inputMethodManager =
-                context!!.getSystemService(InputMethodManager::class.java) as InputMethodManager
+                requireContext().getSystemService(InputMethodManager::class.java) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
         }
 

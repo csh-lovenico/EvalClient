@@ -78,7 +78,7 @@ class LoginViewModel : ViewModel() {
     }
 
     fun navigateComplete() {
-        _navigateToMain.value = false
+        _navigateToMain.value = null
     }
 
     fun clearCache() {
