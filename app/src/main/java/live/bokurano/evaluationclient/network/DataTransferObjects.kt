@@ -12,8 +12,35 @@ data class Course(
     val courseId: String,
     val courseName: String,
     val courseTeacher: String,
+    val courseTeacherId: String,
     val courseYear: Int,
     val courseSemester: Int
+)
+
+data class WebEvaluation(
+    val id: String,
+    val currentStudentId: String,
+    val courseId: String,
+    val courseName: String,
+    val courseTeacher: String,
+    val courseTeacherId: String,
+    val courseSemester: Int,
+    val courseYear: Int,
+    val rate: Int,
+    val comment: String
+)
+
+data class WebStat(
+    val id: String,
+    val courseId: String,
+    val courseName: String,
+    val courseTeacher: String,
+    val courseTeacherId: String,
+    val courseSemester: Int,
+    val courseYear: Int,
+    val average: Double,
+    val studentNum:Int,
+    val comments: List<String>
 )
 
 @JsonClass(generateAdapter = true)
@@ -31,7 +58,8 @@ fun CourseContainer.asDomainModel(): List<Evaluation> {
             courseName = it.courseName,
             courseYear = it.courseYear,
             courseSemester = it.courseSemester,
-            courseTeacher = it.courseTeacher
+            courseTeacher = it.courseTeacher,
+            courseTeacherId = it.courseTeacherId
         )
     }
 }
