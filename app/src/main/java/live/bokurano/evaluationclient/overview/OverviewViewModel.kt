@@ -7,6 +7,7 @@ import live.bokurano.evaluationclient.database.EvaluationDao
 import live.bokurano.evaluationclient.database.EvaluationDatabase
 import live.bokurano.evaluationclient.network.EvalApi
 import live.bokurano.evaluationclient.network.LoginResponse
+import live.bokurano.evaluationclient.network.WebStat
 import live.bokurano.evaluationclient.repository.EvaluationRepository
 import retrofit2.HttpException
 import timber.log.Timber
@@ -57,6 +58,14 @@ class OverviewViewModel(
     val networkError: LiveData<Boolean>
         get() = _networkError
 
+    private val _statList = MutableLiveData<List<WebStat>>()
+    val statList: LiveData<List<WebStat>>
+        get() = _statList
+
+    private val _studentMode = MutableLiveData<Boolean>()
+    val studentMode: LiveData<Boolean>
+        get() = _studentMode
+
     private val evaluationRepository =
         EvaluationRepository(EvaluationDatabase.getInstance(application), loginResponse)
 
@@ -80,7 +89,28 @@ class OverviewViewModel(
     }
 
     init {
-        refreshDataFromRepository()
+        if (savedResponse.userRole == "student") {
+            _studentMode.value = true
+            refreshDataFromRepository()
+        } else if (savedResponse.userRole == "teacher") {
+            _studentMode.value = false
+            getStatData()
+
+        }
+    }
+
+    private fun getStatData() {
+        viewModelScope.launch {
+            val statDeferred =
+                EvalApi.retrofitService.getStatAsync(savedResponse.jwtToken, savedResponse.userId)
+            try {
+                val response = statDeferred.await()
+                _statList.value = response.result
+                Timber.i(response.toString())
+            } catch (e: java.lang.Exception) {
+                Timber.e(e)
+            }
+        }
     }
 
     private fun refreshDataFromRepository() {
@@ -102,6 +132,7 @@ class OverviewViewModel(
         _navigateToDetail.value = null
     }
 
+
     fun checkLoginState() {
         Timber.i(savedResponse.toString())
         if (savedResponse.jwtToken == "undefined") {
@@ -115,6 +146,11 @@ class OverviewViewModel(
                     if (response["status"] == "ok") {
                         _loginSuccess.value = true
                         _notLoggedIn.value = false
+                        if (savedResponse.userRole == "student") {
+                            _studentMode.value = true
+                        } else if (savedResponse.userRole == "teacher") {
+                            _studentMode.value = false
+                        }
                     }
                 } catch (e: HttpException) {
                     Timber.e(e)
