@@ -87,22 +87,6 @@ class OverviewFragment : Fragment() {
         })
 
         viewModel.loginSuccess.observe(viewLifecycleOwner, Observer {
-//            binding.uploadButton.visibility = when (it) {
-//                true -> View.VISIBLE
-//                false -> View.GONE
-//            }
-//            binding.overviewStat.visibility = when (it) {
-//                true -> View.VISIBLE
-//                false -> View.GONE
-//            }
-//            binding.overviewDesc.visibility = when (it) {
-//                true -> View.VISIBLE
-//                false -> View.GONE
-//            }
-//            binding.overviewList.visibility = when (it) {
-//                true -> View.VISIBLE
-//                false -> View.GONE
-//            }
             binding.studentContainer.visibility = when (it) {
                 true -> View.VISIBLE
                 false -> View.GONE
@@ -115,18 +99,6 @@ class OverviewFragment : Fragment() {
         })
 
         viewModel.notLoggedIn.observe(viewLifecycleOwner, Observer {
-//            binding.notLoggedInLogo.visibility = when (it) {
-//                true -> View.VISIBLE
-//                false -> View.GONE
-//            }
-//            binding.notLoggedInTitle.visibility = when (it) {
-//                true -> View.VISIBLE
-//                false -> View.GONE
-//            }
-//            binding.notLoggedInPrompt.visibility = when (it) {
-//                true -> View.VISIBLE
-//                false -> View.GONE
-//            }
             binding.promptContainer.visibility = when (it) {
                 true -> View.VISIBLE
                 false -> View.GONE
@@ -164,15 +136,6 @@ class OverviewFragment : Fragment() {
                 viewModel.onNavigateComplete()
             }
         })
-
-//        viewModel.navigateToTeacher.observe(
-//            viewLifecycleOwner, Observer {
-//                it?.let {
-//                    findNavController().navigate(OverviewFragmentDirections.actionOverviewFragmentToTeacherFragment())
-//                    viewModel.onNavigateComplete()
-//                }
-//            }
-//        )
 
         viewModel.studentMode.observe(viewLifecycleOwner, Observer {
             it?.let {
