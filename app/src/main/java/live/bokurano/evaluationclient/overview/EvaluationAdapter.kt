@@ -27,10 +27,10 @@ class EvaluationAdapter(val clickListener: EvaluationListener) :
             binding.executePendingBindings()
         }
 
-        companion object{
-            fun from(parent: ViewGroup):ViewHolder{
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = OverviewItemBinding.inflate(layoutInflater,parent,false)
+                val binding = OverviewItemBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }
@@ -47,7 +47,6 @@ class EvaluationDiffCallback : DiffUtil.ItemCallback<Evaluation>() {
         return oldItem == newItem
     }
 }
-
 
 class EvaluationListener(val clickListener: (evalId: Long) -> Unit) {
     fun onClick(evaluation: Evaluation) = clickListener(evaluation.evalId)

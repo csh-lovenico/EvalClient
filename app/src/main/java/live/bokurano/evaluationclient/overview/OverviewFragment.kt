@@ -18,6 +18,7 @@ import live.bokurano.evaluationclient.R
 import live.bokurano.evaluationclient.database.EvaluationDatabase
 import live.bokurano.evaluationclient.databinding.OverviewFragmentBinding
 import live.bokurano.evaluationclient.network.LoginResponse
+import live.bokurano.evaluationclient.teacher.TeacherAdapter
 import timber.log.Timber
 
 
@@ -26,7 +27,7 @@ class OverviewFragment : Fragment() {
     private val viewModel: OverviewViewModel by lazy {
         val application = requireNotNull(this.activity).application
         val dataSource = EvaluationDatabase.getInstance(application).evaluationDao
-        val sharedPreferences = activity!!.getSharedPreferences("user", Context.MODE_PRIVATE)
+        val sharedPreferences = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
         val loginResponse = LoginResponse(
             sharedPreferences.getString("jwtToken", "undefined")!!,
             sharedPreferences.getString("userId", "undefined")!!,
@@ -55,6 +56,9 @@ class OverviewFragment : Fragment() {
             viewModel.onEvaluationClicked(evalId)
         })
 
+        val teacherAdapter = TeacherAdapter()
+        binding.statList.adapter = teacherAdapter
+
         binding.overviewList.adapter = adapter
 
         binding.viewModel = viewModel
@@ -70,6 +74,12 @@ class OverviewFragment : Fragment() {
             }
         })
 
+        viewModel.statList.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                teacherAdapter.submitList(it)
+            }
+        })
+
         viewModel.evaluationList.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
@@ -77,44 +87,25 @@ class OverviewFragment : Fragment() {
         })
 
         viewModel.loginSuccess.observe(viewLifecycleOwner, Observer {
-            binding.uploadButton.visibility = when (it) {
-                true -> View.VISIBLE
-                false -> View.GONE
-            }
-            binding.overviewStat.visibility = when (it) {
-                true -> View.VISIBLE
-                false -> View.GONE
-            }
-            binding.overviewDesc.visibility = when (it) {
-                true -> View.VISIBLE
-                false -> View.GONE
-            }
-            binding.overviewList.visibility = when (it) {
+            binding.studentContainer.visibility = when (it) {
                 true -> View.VISIBLE
                 false -> View.GONE
             }
             if (it == true) {
-                activity!!.findViewById<NavigationView>(R.id.navView).menu.clear()
-                activity!!.findViewById<NavigationView>(R.id.navView).inflateMenu(R.menu.main_menu)
+                requireActivity().findViewById<NavigationView>(R.id.navView).menu.clear()
+                requireActivity().findViewById<NavigationView>(R.id.navView)
+                    .inflateMenu(R.menu.main_menu)
             }
         })
 
         viewModel.notLoggedIn.observe(viewLifecycleOwner, Observer {
-            binding.notLoggedInLogo.visibility = when (it) {
-                true -> View.VISIBLE
-                false -> View.GONE
-            }
-            binding.notLoggedInTitle.visibility = when (it) {
-                true -> View.VISIBLE
-                false -> View.GONE
-            }
-            binding.notLoggedInPrompt.visibility = when (it) {
+            binding.promptContainer.visibility = when (it) {
                 true -> View.VISIBLE
                 false -> View.GONE
             }
             if (it == true) {
-                activity!!.findViewById<NavigationView>(R.id.navView).menu.clear()
-                activity!!.findViewById<NavigationView>(R.id.navView)
+                requireActivity().findViewById<NavigationView>(R.id.navView).menu.clear()
+                requireActivity().findViewById<NavigationView>(R.id.navView)
                     .inflateMenu(R.menu.anonymous_menu)
             }
         })
@@ -146,6 +137,23 @@ class OverviewFragment : Fragment() {
             }
         })
 
+        viewModel.studentMode.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                binding.studentContainer.visibility = when (it) {
+                    true -> View.VISIBLE
+                    false -> View.GONE
+                }
+                binding.statList.visibility = when (it) {
+                    true -> View.GONE
+                    false -> View.VISIBLE
+                }
+                if (!it) {
+                    requireActivity().findViewById<NavigationView>(R.id.navView).menu.clear()
+                    requireActivity().findViewById<NavigationView>(R.id.navView)
+                        .inflateMenu(R.menu.teacher_menu)
+                }
+            }
+        })
         viewModel.unfinished.observe(viewLifecycleOwner, Observer {
             it?.let {
                 binding.uploadButton.isEnabled = it.toInt() <= 0
@@ -157,21 +165,32 @@ class OverviewFragment : Fragment() {
             viewModel.checkState()
         }
 
+        viewModel.emptyList.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Snackbar.make(
+                    requireActivity().findViewById(R.id.list_container),
+                    "没有要上传的项目",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                viewModel.setUploadStateComplete()
+            }
+        })
+
         viewModel.tooManyFullStar.observe(viewLifecycleOwner, Observer {
             it?.let {
-                    Snackbar.make(
-                        activity!!.findViewById(R.id.list_container),
-                        "上传失败：不符合评教条件",
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                    viewModel.setUploadStateComplete()
+                Snackbar.make(
+                    requireActivity().findViewById(R.id.list_container),
+                    "上传失败：不符合评教条件",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                viewModel.setUploadStateComplete()
             }
         })
 
         viewModel.uploadSuccess.observe(viewLifecycleOwner, Observer {
             it?.let {
                 Snackbar.make(
-                    activity!!.findViewById(R.id.list_container),
+                    requireActivity().findViewById(R.id.list_container),
                     "上传成功",
                     Snackbar.LENGTH_SHORT
                 ).show()
@@ -184,7 +203,7 @@ class OverviewFragment : Fragment() {
         viewModel.uploadError.observe(viewLifecycleOwner, Observer {
             it?.let {
                 Snackbar.make(
-                    activity!!.findViewById(R.id.list_container),
+                    requireActivity().findViewById(R.id.list_container),
                     "上传失败：网络错误",
                     Snackbar.LENGTH_SHORT
                 ).show()

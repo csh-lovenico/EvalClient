@@ -41,6 +41,17 @@ interface EvalApiService {
         @Body evaluations: List<Evaluation>
     ): Deferred<TransferResult<String>>
 
+    @GET("/api/student/getEvaluationHistory")
+    fun getHistoryAsync(
+        @Header("Authorization") token: String,
+        @Query("studentId") studentId: String
+    ): Deferred<TransferResult<List<WebEvaluation>>>
+
+    @GET("/api/teacher/getEvaluationOfMyCourse")
+    fun getStatAsync(
+        @Header("Authorization") token: String,
+        @Query("teacherId") teacherId: String
+    ): Deferred<TransferResult<List<WebStat>>>
 }
 
 object EvalApi {

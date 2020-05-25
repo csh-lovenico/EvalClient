@@ -50,11 +50,11 @@ fun TextView.setCourseSemester(item: Evaluation?) {
 @BindingAdapter("starStatus")
 fun ImageView.setStarStatus(item: Evaluation?) {
     item?.let {
-        when (item.rate) {
+        when (item.rate.stream().reduce(Integer::sum).orElse(0)) {
             0 -> {
                 setImageResource(R.drawable.ic_star_black_24dp)
             }
-            5 -> {
+            30 -> {
                 setImageResource(R.drawable.ic_star_yellow_24dp)
             }
             else -> {

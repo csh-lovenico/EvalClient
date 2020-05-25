@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="live.bokurano.evaluationclient.detail.DetailViewModel" />
@@ -76,10 +75,11 @@
         <ScrollView
             android:id="@+id/scrollView2"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/default_padding_margin"
-            android:paddingStart="@dimen/default_padding_margin"
-            android:paddingEnd="@dimen/default_padding_margin"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/course_teacher_text">
@@ -89,66 +89,34 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/eval_total"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/eval_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/eval_total_title"
-                    android:textSize="18sp"
-                    tools:text="@string/eval_total_title" />
-
-                <TextView
-                    android:id="@+id/eval_total_desc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/eval_total_desc"
-                    tools:text="@string/eval_total_desc" />
-
-                <LinearLayout
-                    android:id="@+id/eval_total_score_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:paddingBottom="8dp">
-
-                    <SeekBar
-                        android:id="@+id/eval_total_seekbar"
-                        style="@style/Widget.AppCompat.SeekBar.Discrete"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="9"
-                        android:max="5"
-                        android:progress="@{viewModel.evaluation.rate}" />
-
-                    <TextView
-                        android:id="@+id/eval_total_score"
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:textAlignment="center"
-                        tools:text="0" />
-                </LinearLayout>
+                    android:nestedScrollingEnabled="true"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/detail_item"
+                    tools:visibility="visible" />
 
                 <TextView
                     android:id="@+id/eval_comment_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:paddingTop="8dp"
+                    android:layout_marginEnd="16dp"
                     android:paddingBottom="8dp"
                     android:text="@string/comment_title"
                     android:textSize="18sp"
+                    android:textStyle="bold"
                     tools:text="@string/comment_title" />
 
                 <EditText
                     android:id="@+id/eval_comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:ems="10"
                     android:gravity="start|top"
                     android:hint="@string/comment_hint"
@@ -160,6 +128,9 @@
                     android:id="@+id/save_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
                     android:text="@string/button_save"
                     tools:text="@string/button_save" />
 

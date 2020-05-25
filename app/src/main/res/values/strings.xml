@@ -35,4 +35,8 @@
     <string name="course_semester">第%d学期</string>
     <string name="course_year">%d - %d</string>
     <string name="detail_title">评教详情</string>
+    <string name="history_rate">评分：%s</string>
+    <string name="history_comment">评语：%s</string>
+    <string name="stat_average">平均评分：%s</string>
+    <string name="stat_student_num">共%d人评教</string>
 </resources>

@@ -16,260 +16,306 @@
         tools:context=".overview.OverviewFragment"
         tools:visibility="visible">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/overview_stat"
+        <LinearLayout
+            android:id="@+id/student_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
-            <LinearLayout
-                android:id="@+id/unfinished"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toStartOf="@+id/divider4"
-                app:layout_constraintHorizontal_bias="0.5"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/overview_stat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="visible">
 
-                <ImageView
-                    android:id="@+id/unfinished_logo"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_assignment_gray_96dp" />
-
-                <TextView
-                    android:id="@+id/unfinished_text"
+                <LinearLayout
+                    android:id="@+id/unfinished"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@{viewModel.unfinished}"
-                    android:textSize="36sp"
-                    tools:text="0" />
-
-            </LinearLayout>
-
-            <View
-                android:id="@+id/divider4"
-                android:layout_width="1dp"
-                android:layout_height="60dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toStartOf="@+id/finished"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/unfinished"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <LinearLayout
-                android:id="@+id/finished"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toStartOf="@+id/divider2"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/divider4"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="visible">
-
-                <ImageView
-                    android:id="@+id/finished_logo"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_assignment_turned_in_green_96dp" />
-
-                <TextView
-                    android:id="@+id/finished_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@{viewModel.finished}"
-                    android:textSize="36sp"
-                    tools:text="5" />
-            </LinearLayout>
-
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="1dp"
-                android:layout_height="60dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toStartOf="@+id/star_sign"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/finished"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <LinearLayout
-                android:id="@+id/star_sign"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toStartOf="@+id/divider3"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/divider2"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="visible">
-
-                <ImageView
-                    android:id="@+id/star_half_logo"
-                    android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_star_half_yellow_24dp" />
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toStartOf="@+id/divider4"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible">
 
-                <TextView
-                    android:id="@+id/star_half_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:text="@{viewModel.halfStar}"
-                    android:textSize="36sp"
-                    tools:text="5" />
-            </LinearLayout>
+                    <ImageView
+                        android:id="@+id/unfinished_logo"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/ic_assignment_gray_96dp" />
 
-            <View
-                android:id="@+id/divider3"
-                android:layout_width="1dp"
-                android:layout_height="60dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toStartOf="@+id/star_full"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/star_sign"
-                app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/unfinished_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="@{viewModel.unfinished}"
+                        android:textSize="36sp"
+                        tools:text="0" />
 
-            <LinearLayout
-                android:id="@+id/star_full"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/divider3"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="visible">
+                </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/star_full_logo"
-                    android:layout_width="60dp"
+                <View
+                    android:id="@+id/divider4"
+                    android:layout_width="1dp"
                     android:layout_height="60dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_star_yellow_24dp" />
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintEnd_toStartOf="@+id/finished"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/unfinished"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/star_full_text"
+                <LinearLayout
+                    android:id="@+id/finished"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@{viewModel.fullStar}"
-                    android:textSize="36sp"
-                    tools:text="0" />
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toStartOf="@+id/divider2"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/divider4"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible">
 
-        <TextView
-            android:id="@+id/overview_desc"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/overview_desc"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/overview_stat"
-            tools:text="@string/overview_desc"
-            tools:visibility="visible" />
+                    <ImageView
+                        android:id="@+id/finished_logo"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/ic_assignment_turned_in_green_96dp" />
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/list_container"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/overview_desc">
+                    <TextView
+                        android:id="@+id/finished_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="@{viewModel.finished}"
+                        android:textSize="36sp"
+                        tools:text="5" />
+                </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/overview_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:itemCount="3"
-                tools:listitem="@layout/overview_item"
-                tools:visibility="visible">
+                <View
+                    android:id="@+id/divider2"
+                    android:layout_width="1dp"
+                    android:layout_height="60dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintEnd_toStartOf="@+id/star_sign"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/finished"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </androidx.recyclerview.widget.RecyclerView>
+                <LinearLayout
+                    android:id="@+id/star_sign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toStartOf="@+id/divider3"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/divider2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/upload_button"
+                    <ImageView
+                        android:id="@+id/star_half_logo"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/ic_star_half_yellow_24dp" />
+
+                    <TextView
+                        android:id="@+id/star_half_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="@{viewModel.halfStar}"
+                        android:textSize="36sp"
+                        tools:text="5" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/divider3"
+                    android:layout_width="1dp"
+                    android:layout_height="60dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintEnd_toStartOf="@+id/star_full"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/star_sign"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/star_full"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/divider3"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible">
+
+                    <ImageView
+                        android:id="@+id/star_full_logo"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/ic_star_yellow_24dp" />
+
+                    <TextView
+                        android:id="@+id/star_full_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@{viewModel.fullStar}"
+                        android:textSize="36sp"
+                        tools:text="0" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/overview_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:src="@drawable/ic_cloud_upload_white_24dp"
-                android:visibility="gone"
+                android:layout_marginBottom="8dp"
+                android:text="@string/overview_desc"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/overview_stat"
+                tools:text="@string/overview_desc"
                 tools:visibility="visible" />
 
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:id="@+id/list_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/overview_desc">
 
-        <ImageView
-            android:id="@+id/not_logged_in_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/overview_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="visible"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/overview_item"
+                    tools:visibility="visible">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/upload_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_cloud_upload_white_24dp"
+                    android:visibility="visible"
+                    tools:visibility="visible" />
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/prompt_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.35000002"
-            app:srcCompat="@drawable/ic_account_box_black_24dp" />
+            tools:visibility="gone">
 
-        <TextView
-            android:id="@+id/not_logged_in_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/not_logged_in_title"
-            android:textSize="30sp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/not_logged_in_logo"
-            tools:text="@string/not_logged_in_title" />
+            <ImageView
+                android:id="@+id/not_logged_in_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.35000002"
+                app:srcCompat="@drawable/ic_account_box_black_24dp"
+                tools:visibility="visible" />
 
-        <TextView
-            android:id="@+id/not_logged_in_prompt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/not_logged_in_prompt"
-            android:textSize="18sp"
+            <TextView
+                android:id="@+id/not_logged_in_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/not_logged_in_title"
+                android:textSize="30sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/not_logged_in_logo"
+                tools:text="@string/not_logged_in_title"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/not_logged_in_prompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/not_logged_in_prompt"
+                android:textSize="18sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/not_logged_in_title"
+                tools:text="@string/not_logged_in_prompt"
+                tools:visibility="visible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/stat_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/not_logged_in_title"
-            tools:text="@string/not_logged_in_prompt" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="1"
+            tools:listitem="@layout/teacher_item"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
