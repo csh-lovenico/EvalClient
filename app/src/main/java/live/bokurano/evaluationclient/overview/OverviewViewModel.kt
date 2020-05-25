@@ -66,26 +66,41 @@ class OverviewViewModel(
     val studentMode: LiveData<Boolean>
         get() = _studentMode
 
+    private val _emptyList = MutableLiveData<Boolean>()
+    val emptyList: LiveData<Boolean>
+        get() = _emptyList
+
+
     private val evaluationRepository =
         EvaluationRepository(EvaluationDatabase.getInstance(application), loginResponse)
 
     val evaluationList = evaluationRepository.evaluations
 
     val unfinished = Transformations.map(evaluationList) {
-        evaluationList.value?.stream()?.filter { it.rate == 0 && !it.complete }?.count().toString()
+        evaluationList.value?.stream()
+            ?.filter { it.rate.stream().filter { it > 0 }.count() == 0L && !it.complete }?.count()
+            .toString()
     }
 
     val finished = Transformations.map(evaluationList) {
-        evaluationList.value?.stream()?.filter { it.rate != 0 && !it.complete }?.count().toString()
+        evaluationList.value?.stream()
+            ?.filter { it.rate.stream().filter { it > 0 }.count() != 0L && !it.complete }?.count()
+            .toString()
     }
 
     val halfStar = Transformations.map(evaluationList) {
-        evaluationList.value?.stream()?.filter { it.rate in 1..4 && !it.complete }?.count()
+        evaluationList.value?.stream()
+            ?.filter {
+                it.rate.stream().filter { it in 1..4 }.count() == 6L && !it.complete
+            }
+            ?.count()
             .toString()
     }
 
     val fullStar = Transformations.map(evaluationList) {
-        evaluationList.value?.stream()?.filter { it.rate == 5 && !it.complete }?.count().toString()
+        evaluationList.value?.stream()
+            ?.filter { it.rate.stream().filter { it in 0..4 }.count() == 0L && !it.complete }
+            ?.count().toString()
     }
 
     init {
@@ -132,7 +147,6 @@ class OverviewViewModel(
         _navigateToDetail.value = null
     }
 
-
     fun checkLoginState() {
         Timber.i(savedResponse.toString())
         if (savedResponse.jwtToken == "undefined") {
@@ -172,6 +186,8 @@ class OverviewViewModel(
     fun checkState() {
         if (fullStar.value!!.toInt() > finished.value!!.toInt() * 0.2) {
             _tooManyFullStar.value = true
+        } else if (finished.value!!.toInt() == 0) {
+            _emptyList.value = true
         } else {
             postEvaluations()
         }
@@ -199,7 +215,7 @@ class OverviewViewModel(
 
     private suspend fun setEvaluationCompleted() {
         withContext(Dispatchers.IO) {
-            evaluationList.value!!.stream().forEach {
+            evaluationList.value!!.forEach {
                 it.complete = true
             }
             database.updateAll(evaluationList.value!!)
@@ -225,5 +241,6 @@ class OverviewViewModel(
         _tooManyFullStar.value = null
         _uploadSuccess.value = null
         _uploadError.value = null
+        _emptyList.value = null
     }
 }

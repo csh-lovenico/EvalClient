@@ -30,7 +30,7 @@ fun TextView.setCourseSemester(item: WebStat?) {
 @BindingAdapter("averageRating")
 fun TextView.setAverageRate(item: WebStat?) {
     item?.let {
-        text = context.resources.getString(R.string.stat_average, item.average)
+        text = context.resources.getString(R.string.stat_average, item.average.toString())
     }
 }
 

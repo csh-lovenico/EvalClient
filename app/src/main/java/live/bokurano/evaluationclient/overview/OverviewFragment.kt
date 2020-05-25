@@ -165,6 +165,17 @@ class OverviewFragment : Fragment() {
             viewModel.checkState()
         }
 
+        viewModel.emptyList.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Snackbar.make(
+                    requireActivity().findViewById(R.id.list_container),
+                    "没有要上传的项目",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                viewModel.setUploadStateComplete()
+            }
+        })
+
         viewModel.tooManyFullStar.observe(viewLifecycleOwner, Observer {
             it?.let {
                 Snackbar.make(

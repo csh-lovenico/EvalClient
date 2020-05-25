@@ -35,9 +35,9 @@ fun TextView.setCourseSemester(item: WebEvaluation?) {
 }
 
 @BindingAdapter("courseRate")
-fun TextView.setcourseRate(item: WebEvaluation?) {
+fun TextView.setCourseRate(item: WebEvaluation?) {
     item?.let {
-        text = context.resources.getString(R.string.history_rate, item.rate)
+        text = context.resources.getString(R.string.history_rate, it.rate.toString())
     }
 }
 

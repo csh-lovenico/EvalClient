@@ -26,7 +26,7 @@ data class WebEvaluation(
     val courseTeacherId: String,
     val courseSemester: Int,
     val courseYear: Int,
-    val rate: Int,
+    val rate: List<Int>,
     val comment: String
 )
 
@@ -38,8 +38,8 @@ data class WebStat(
     val courseTeacherId: String,
     val courseSemester: Int,
     val courseYear: Int,
-    val average: Double,
-    val studentNum:Int,
+    val average: List<Double>,
+    val studentNum: Int,
     val comments: List<String>
 )
 
@@ -59,7 +59,8 @@ fun CourseContainer.asDomainModel(): List<Evaluation> {
             courseYear = it.courseYear,
             courseSemester = it.courseSemester,
             courseTeacher = it.courseTeacher,
-            courseTeacherId = it.courseTeacherId
+            courseTeacherId = it.courseTeacherId,
+            rate = arrayListOf(0, 0, 0, 0, 0, 0)
         )
     }
 }
