@@ -13,12 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_padding_margin"
-        android:layout_marginTop="@dimen/default_padding_margin"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="@dimen/default_padding_margin"
-        android:focusable="true"
+        android:layout_marginBottom="8dp"
         android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        >
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -66,10 +66,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
                 android:textSize="18sp"
                 app:averageRating="@{stat}"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/stat_year_text"
                 tools:text="平均评分: 3.5" />
@@ -79,10 +77,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                app:studentNum="@{stat}"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
                 android:textSize="18sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/stat_rate_text"
-                app:layout_constraintStart_toEndOf="@+id/stat_rate_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stat_rate_text"
+                app:studentNum="@{stat}"
                 tools:text="共50人评分" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

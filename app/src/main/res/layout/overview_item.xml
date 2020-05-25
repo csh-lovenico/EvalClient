@@ -16,15 +16,15 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/default_padding_margin"
-        android:layout_marginTop="@dimen/default_padding_margin"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="@dimen/default_padding_margin"
-        app:visibility="@{evaluation}"
-        android:focusable="true"
+        android:layout_marginBottom="8dp"
         android:clickable="true"
+        android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{()->clickListener.onClick(evaluation)}"
-        >
+        app:visibility="@{evaluation}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
