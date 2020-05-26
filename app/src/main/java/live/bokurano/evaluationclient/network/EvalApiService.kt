@@ -10,7 +10,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 
 private const val BASE_URL = "http://10.0.2.2:8080/"
-private const val BASE_MOCK = "https://3e6afc28-f802-476e-82c4-7dacef64fea9.mock.pstmn.io/"
+private const val PROD_URL = "http://47.93.223.78:8080/"
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())

@@ -52,7 +52,8 @@ class AboutFragment : Fragment() {
                     .setPositiveButton(
                         getString(R.string.dialog_confirm)
                     ) { _, _ ->
-                        activity!!.getSharedPreferences("user", Context.MODE_PRIVATE).edit().clear()
+                        requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE).edit()
+                            .clear()
                             .apply()
                         CoroutineScope(Job() + Dispatchers.IO).launch {
                             EvaluationDatabase.getInstance(requireNotNull(activity).application).evaluationDao.clearAll()
