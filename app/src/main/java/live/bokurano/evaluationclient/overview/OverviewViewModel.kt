@@ -91,7 +91,7 @@ class OverviewViewModel(
     val halfStar = Transformations.map(evaluationList) {
         evaluationList.value?.stream()
             ?.filter {
-                it.rate.stream().filter { it in 1..4 }.count() == 6L && !it.complete
+                it.rate.stream().mapToInt { it }.sum() in 5..29 && !it.complete
             }
             ?.count()
             .toString()
